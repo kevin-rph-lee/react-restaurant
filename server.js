@@ -27,6 +27,9 @@ app.use(session({secret: 'my-secret',
                   saveUninitialized: true}
                 ));
 app.use(knexLogger(knex));
+const menuItemsRoutes = require('./routes/menu_items');
+
+
 
 let sessions;
 
@@ -53,22 +56,16 @@ app.post('/signin', function (req, res) {
       console.log(results);
       if(password===results[0].password){
         sessions.email = email;
-        console.log(sessions);
         res.send('success');
       }
       else{
         res.status(404).send('Invalid!');
       }
     });
-
-  // console.log(user_name + ' ' + password);
-  // if(user_name=='admin' && password=='admin'){
-  // 	res.send('success');
-  // }
-  // else{
-  // 	res.send('Failure');
-  // }
 })
+
+app.use("/menu_items", menuItemsRoutes(knex));
+
 
 app.listen(PORT,function(){
     console.log("Started listening on port", PORT);

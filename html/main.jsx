@@ -20,10 +20,12 @@ class Signin extends React.Component {
         password: this.state.password
       })
       .then(function (response) {
-        console.log(response);
+        if(response.data == 'success'){
+            window.location.assign('http://localhost:8080/home')
+        }
       })
       .catch(function (error) {
-        console.log(error);
+        console.log('error!');
       });
     }
     handleEmailChange(e){
@@ -45,7 +47,7 @@ class Signin extends React.Component {
             <button className="btn btn-lg btn-primary btn-block" onClick={this.signIn} type="button">Sign in</button>
           </form>
           <div>
-            <Link to="/signup">{'Signup'}</Link>
+            <Link to="/signup">{'Register!'}</Link>
           </div>
         </div>
 
@@ -57,6 +59,7 @@ class Signup extends React.Component{
   render() {
       return (
         <div>
+          <NavBar />
           <form className="form-signin">
             <h2 className="form-signin-heading">Please sign up</h2>
             <label for="inputName" className="sr-only">Name</label>

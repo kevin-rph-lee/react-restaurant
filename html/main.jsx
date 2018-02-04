@@ -41,7 +41,7 @@ class Signin extends React.Component {
             <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" required autofocus />
             <label for="inputPassword" className="sr-only">Password</label>
             <input type="password" onChange={this.handlePasswordChange} id="inputPassword" className="form-control" placeholder="Password" required />
-            
+
             <button className="btn btn-lg btn-primary btn-block" onClick={this.signIn} type="button">Sign in</button>
           </form>
           <div>
@@ -65,14 +65,14 @@ class Signup extends React.Component{
             <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" required autofocus />
             <label for="inputPassword" className="sr-only">Password</label>
             <input type="password" onChange={this.handlePasswordChange} id="inputPassword" className="form-control" placeholder="Password" required />
-            
+
             <button className="btn btn-lg btn-primary btn-block" onClick={this.signUp} type="button">Sign up</button>
           </form>
           <div>
             <Link to="/">{'Signin'}</Link>
           </div>
         </div>
-        
+
       )
     }
 }

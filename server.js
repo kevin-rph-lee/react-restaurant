@@ -18,22 +18,33 @@ const knexLogger = require('knex-logger');
 var app = express();
 app.use(express.static(path.join(__dirname,"/html")));
 
-//app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
 app.post('/signin', function (req, res) {
-  var user_name=req.body.email;
+  var email=req.body.email;
   var password=req.body.password;
-  if(user_name=='admin' && password=='admin'){
-  	res.send('success');
-  }
-  else{
-  	res.send('Failure');
-  }
+
+  knex
+    .select("password")
+    .from("users")
+    .where({email: email})
+    .then((results) => {
+      console.log(results);
+      res.json(results[0]);
+    });
+
+  // console.log(user_name + ' ' + password);
+  // if(user_name=='admin' && password=='admin'){
+  // 	res.send('success');
+  // }
+  // else{
+  // 	res.send('Failure');
+  // }
 })
 
 app.listen(PORT,function(){

@@ -9,36 +9,36 @@ class ShowPost extends React.Component {
       this.state ={
         menuItems:[]
       };
+      //TODO: find out why this doesn't work
+      this.componentDidMount=this.componentDidMount.bind(this);
     }
 
     componentDidMount(){
-      var self = this;
+      //binding this
+      self = this;
       axios.get('menu_items/', {
 
       })
       .then(function (response) {
-        console.log(response.data);
+        self.setState({menuItems:response.data})
+        console.log(self.state.menuItems)
       })
       .catch(function (error) {
         console.log('error is ',error);
-      });
+      })
     }
 
     render() {
       return (
           <div className="list-group">
-            <a href="#" className="list-group-item active">
-              <h4 className="list-group-item-heading">List group item heading</h4>
-              <p className="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            </a>
-            <a href="#" className="list-group-item">
-              <h4 className="list-group-item-heading">List group item heading</h4>
-              <p className="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            </a>
-            <a href="#" className="list-group-item">
-              <h4 className="list-group-item-heading">List group item heading</h4>
-              <p className="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            </a>
+            {
+              this.state.menuItems.map(function(item) {
+                 return <a href="#" key={item.id} className="list-group-item active">
+                          <h4 className="list-group-item-heading">{item.name}</h4>
+                          <p className="list-group-item-text">{item.price}</p>
+                        </a>
+              })
+            }
           </div>
       )
     }
